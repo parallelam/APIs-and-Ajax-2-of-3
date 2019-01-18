@@ -29,6 +29,7 @@
       <!-- Button triggers new movie to be added -->
       <input id="add-movie" type="submit" value="Add a Movie, Yo!">
     </form>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
       // Initial array of movies
@@ -36,8 +37,8 @@
 
       // Function for displaying movie data
       function renderButtons() {
-        $('#movies-view').empty();
-        movies.forEach(function(movie){
+          $('#movies-view').empty();
+          movies.forEach(function(movie){
           var button = $('<button>');
           button.addClass('movie');
           button.attr('data-name', movie);
@@ -50,11 +51,40 @@
       // This function handles events where one button is clicked
       $("#add-movie").on("click", function() {
         event.preventDefault();
-       
+        var value = $('#movie-input').val().trim();
+        movies.push(value);
+        renderButtons();
 
         // YOUR CODE GOES HERE
 
       });
+
+      function displayMovieInfo(){
+        var movieName = $(this).attr('data-name');
+        var queryURL = "https://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";        
+        $.ajax({
+          url: queryURL,
+          method: 'GET'
+        }).then(function(response){
+          console.log(response);
+          var rating = response.Rated;
+          var released = response.Released;
+          var plot = response.Plot;
+          var imgUrl = response.Poster;
+
+          var movieDiv = $("<div class='movie'>");
+          var ratingEl = $('<p>').text(rating);
+          var releaseEl = $('<p>').text(released);
+          var plotEl = $('<p>').text(plot);
+          var img = $('<img>').attr('src', imgUrl);
+
+          movieDiv.append(ratingEl, releaseEl, plotEl, img);
+
+          $('#movies-view').prepend(movieDiv);
+        })        
+      }
+
+      $(document).on('click', '.movie', displayMovieInfo);
 
       // Calling the renderButtons function to display the initial list of movies
       renderButtons();
