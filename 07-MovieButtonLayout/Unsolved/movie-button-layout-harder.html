@@ -80,7 +80,9 @@
 
           movieDiv.append(ratingEl, releaseEl, plotEl, img);
 
-          $('#movies-view').prepend(movieDiv);
+          $('#movies-view').append(movieDiv);
+        }).catch(function(error){
+          console.log(error.responseJSON.Error);
         })        
       }
 
