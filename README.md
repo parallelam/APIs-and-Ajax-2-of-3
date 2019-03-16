@@ -4,8 +4,6 @@ Activities, exercises and self-education with advanced JavaScript concepts; ie A
 
 [Todd Motto's Public API List](https://github.com/toddmotto/public-apis)
 
-[Scrum Guide](https://www.scrumguides.org/scrum-guide.html)
-
 [jQuery's AJAX Documentation](http://api.jquery.com/jquery.ajax/)
 
 [Giphy API Documentation](https://developers.giphy.com/docs/)
